@@ -33,6 +33,7 @@ class LinkedList():
     ----------
     seq: iterable
         An iterable providing data
+
     """
     def __init__(self, seq):
         self.head = None
@@ -54,6 +55,7 @@ class LinkedList():
         -------
         list
             A list that contains data in linked list.
+
         """
         if self.head == None:
             return []
@@ -66,4 +68,28 @@ class LinkedList():
                 curr = curr.next
 
             return converted
+
+    def reverse(self):
+        """Revsers linkedlist in place.
+
+        Returns
+        -------
+        None
+
+        """
+        if self.head is None:
+            return
+
+        curr = self.head
+        curr_next = curr.next
+        pre = None
+
+        while curr_next is not None:
+            curr.next = pre
+            pre = curr
+            curr = curr_next
+            curr_next = curr.next
+
+        curr.next = pre
+        self.head = curr
 
