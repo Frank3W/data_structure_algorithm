@@ -17,3 +17,9 @@ def test_linked_list_reverse():
     ll_null.reverse()
     assert ll_null.to_list() == []
 
+def test_even_odd_switch():
+    input_list = [1, 2, 3]
+    ll = LinkedList(input_list)
+    ll.even_odd_switch()
+    assert ll.to_list() == [1, 3, 2]
+

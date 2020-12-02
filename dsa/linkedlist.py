@@ -93,3 +93,40 @@ class LinkedList():
         curr.next = pre
         self.head = curr
 
+    def even_odd_switch(self):
+        """Reorder even and odd nodes in place.
+
+        Odd nodes will be followed by even nodes in the resulting linkedlist.
+        """
+
+        if self.head is None or self.head.next is None:
+            return
+
+        odd_head = self.head
+        even_head = self.head.next
+
+        odd_tail = odd_head
+        even_tail = even_head
+
+        odd_curr = odd_head.next.next
+
+        while True:
+            # odd_curr always point to next element in original linked list
+            if odd_curr is None:
+                odd_tail.next = even_head
+                even_tail.next = None
+                break
+            elif odd_curr.next is None:
+                odd_tail.next = odd_curr
+                odd_curr.next = even_head
+                even_tail.next = None
+                break
+            else:
+                odd_tail.next = odd_curr
+                even_tail.next = odd_curr.next
+
+                odd_tail = odd_tail.next
+                even_tail = even_tail.next
+
+                odd_curr = odd_curr.next.next
+
