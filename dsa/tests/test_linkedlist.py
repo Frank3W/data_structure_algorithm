@@ -1,4 +1,5 @@
 from dsa.linkedlist import LinkedList 
+from dsa.linkedlist import LinkedStack
 
 
 def test_linked_list_to_list():
@@ -43,3 +44,16 @@ def test_middle():
 
     ll = LinkedList([])
     assert ll.middle() is None
+
+def test_linkedstack():
+    ls = LinkedStack()
+    ls.push(1)
+    ls.push(2)
+    ls.push(3)
+    assert ls.to_list() == [3, 2, 1]
+    assert ls.pop() == 3
+    assert ls.to_list() == [2, 1]
+    assert ls.pop() == 2
+    assert ls.pop() == 1
+    assert ls.pop() is None
+    assert ls.to_list() == []

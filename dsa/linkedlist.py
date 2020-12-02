@@ -2,7 +2,7 @@
 Module for linkedlist data structure and algorithms
 """
 
-class LinkedNode():
+class LinkedNode:
     """Node for one-direction link.
 
     Parameters
@@ -26,7 +26,7 @@ class LinkedNode():
         return str(self.data)
 
 
-class LinkedList():
+class LinkedList:
     """Linked list of LinkedNode.
 
     Parameters
@@ -178,4 +178,45 @@ class LinkedList():
             curr_t2 = curr_t2.next.next
 
         return curr.data
+
+
+class LinkedStack(LinkedList):
+    """Linked list implementation of Stack
+    """
+
+    def __init__(self):
+        super(LinkedStack, self).__init__([])
+
+    def pop(self):
+        """Removes first element.
+
+        Returns
+        -------
+        any
+
+        """
+        if self.head is None:
+            return None
+
+        curr = self.head
+        self.head = self.head.next
+        return curr.data
+
+    def push(self, data):
+        """Adds an element to the stack
+
+        Args
+        ----
+        data: any
+
+        """
+        
+        node = LinkedNode(data)
+
+        if self.head is None:
+            self.head = node
+        else:
+            head_next = self.head
+            self.head = node
+            node.next = head_next
 
