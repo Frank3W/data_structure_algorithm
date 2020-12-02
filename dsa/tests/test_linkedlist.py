@@ -23,3 +23,12 @@ def test_even_odd_switch():
     ll.even_odd_switch()
     assert ll.to_list() == [1, 3, 2]
 
+def test_delete():
+    input_list = [1, 2, 3]
+    ll = LinkedList(input_list)
+    assert ll.delete(2)
+    assert not ll.delete(10)
+    assert ll.to_list() == [1, 3]
+    assert ll.delete(1)
+    assert ll.delete(3)
+    assert ll.to_list() == []

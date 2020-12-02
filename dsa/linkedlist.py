@@ -97,6 +97,7 @@ class LinkedList():
         """Reorder even and odd nodes in place.
 
         Odd nodes will be followed by even nodes in the resulting linkedlist.
+
         """
 
         if self.head is None or self.head.next is None:
@@ -129,4 +130,34 @@ class LinkedList():
                 even_tail = even_tail.next
 
                 odd_curr = odd_curr.next.next
+
+    def delete(self, data):
+        """delete first occurrence of node with input data.
+
+        Returns
+        -------
+        bool
+            indicator whether element is deleted or not.
+
+        """
+
+        if self.head is None:
+            return False
+
+        if self.head.data == data:
+            self.head = self.head.next
+            return True
+
+        pre = self.head
+        curr = self.head.next
+
+        while curr is not None:
+            if curr.data == data:
+                pre.next = curr.next
+                return True
+            else:
+                pre = curr
+                curr = curr.next
+
+        return False
 
