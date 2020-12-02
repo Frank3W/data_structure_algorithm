@@ -32,3 +32,14 @@ def test_delete():
     assert ll.delete(1)
     assert ll.delete(3)
     assert ll.to_list() == []
+
+def test_middle():
+    input_list = [1, 2, 3]
+    ll = LinkedList(input_list)
+    assert ll.middle() == 2
+
+    ll = LinkedList([1, 2, 3, 4])
+    assert ll.middle() == 2
+
+    ll = LinkedList([])
+    assert ll.middle() is None

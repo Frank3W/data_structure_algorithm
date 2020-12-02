@@ -132,7 +132,7 @@ class LinkedList():
                 odd_curr = odd_curr.next.next
 
     def delete(self, data):
-        """delete first occurrence of node with input data.
+        """Delete first occurrence of node with input data.
 
         Returns
         -------
@@ -160,4 +160,22 @@ class LinkedList():
                 curr = curr.next
 
         return False
+
+    def middle(self):
+        """Gets the middle element.
+
+        Returns None if linkedlist is empty.
+        """
+
+        if self.head is None:
+            return None
+
+        curr = self.head
+        curr_t2 = self.head.next
+
+        while curr_t2 is not None and curr_t2.next is not None:
+            curr = curr.next
+            curr_t2 = curr_t2.next.next
+
+        return curr.data
 
