@@ -57,3 +57,8 @@ def test_linkedstack():
     assert ls.pop() == 1
     assert ls.pop() is None
     assert ls.to_list() == []
+
+def test_reverse_kgroup():
+    ll = LinkedList([1, 2, 3])
+    ll.reverse_kgroup(k = 2)
+    assert ll.to_list() == [2, 1, 3]

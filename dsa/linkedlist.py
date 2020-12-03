@@ -179,6 +179,46 @@ class LinkedList:
 
         return curr.data
 
+    def reverse_kgroup(self, k):
+        """Reverses k-group in place.
+        """
+        
+        if k <= 0 or k != int(k):
+            raise ValueError('input k must be a positive integer')
+
+        if k == 1 or self.head is None or self.head.next is None:
+            return
+
+        reversed_head = None
+        reversed_tail = None
+
+        stack_kgroup = LinkedStack()
+        cnt = 0
+        curr = self.head
+
+        while curr is not None:
+            stack_kgroup.push(curr)
+            cnt += 1 
+
+            curr = curr.next
+
+            if cnt == k or curr is None:
+                cnt = 0
+                while True:
+                    node = stack_kgroup.pop()
+                    if node is None:
+                        break
+
+                    if reversed_head is None:
+                        reversed_head = node
+                        reversed_tail = node
+                    else:
+                        reversed_tail.next = node
+                        reversed_tail = reversed_tail.next
+
+        reversed_tail.next = None
+        self.head = reversed_head
+
 
 class LinkedStack(LinkedList):
     """Linked list implementation of Stack
