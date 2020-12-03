@@ -232,6 +232,11 @@ class LinkedList:
         """Merges another linked list in alternative manner.
 
         Starts with linked list of self.
+
+        Args
+        ----
+            other:
+                LinkedList
         """
         if self.head is None:
             self.head = other.head
@@ -261,6 +266,27 @@ class LinkedList:
             curr.next = curr_other
 
         other.head = None
+
+    def concat(self, other):
+        """Concatenate the second linked list to end of first one.
+
+        Args
+        ----
+            other: LinkedList
+        """
+        
+        if self.head is None:
+            self.head = other.head
+            other.head = None
+            return
+
+        curr = self.head
+        while curr.next is not None:
+            curr = curr.next
+
+        curr.next = other.head
+        other.head = None
+
 
     def emptify(self):
         """Emptify linked list.

@@ -71,3 +71,11 @@ def test_alter_merge():
     assert ll1.to_list() == [1, 1, 2, 2, 3]
     assert ll2.to_list() == []
 
+def test_concat(empty_ll):
+    ll1 = LinkedList([1, 2, 3])
+    ll2 = LinkedList([4, 5, 6])
+
+    ll1.concat(ll2)
+    assert ll1.to_list() == [1, 2, 3, 4, 5, 6]
+    ll1.concat(empty_ll)
+    assert ll1.to_list() == [1, 2, 3, 4, 5, 6]
