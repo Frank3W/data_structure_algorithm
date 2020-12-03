@@ -62,3 +62,11 @@ def test_reverse_kgroup():
     ll = LinkedList([1, 2, 3])
     ll.reverse_kgroup(k = 2)
     assert ll.to_list() == [2, 1, 3]
+
+def test_alter_merge():
+    ll1 = LinkedList([1, 2, 3])
+    ll2 = LinkedList([1, 2])
+    ll1.alter_merge(ll2)
+    assert ll1.to_list() == [1, 1, 2, 2, 3]
+    assert ll2.to_list() == []
+

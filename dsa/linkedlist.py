@@ -164,7 +164,10 @@ class LinkedList:
     def middle(self):
         """Gets the middle element.
 
-        Returns None if linkedlist is empty.
+        Returns
+        -------
+        None or data:
+            None if linkedlist is empty.
         """
 
         if self.head is None:
@@ -180,7 +183,13 @@ class LinkedList:
         return curr.data
 
     def reverse_kgroup(self, k):
-        """Reverses k-group in place.
+        """Reverses every k-consecutive elements in place.
+
+        Args
+        ----
+        k: int
+            number of elements in the group to be reversed.
+
         """
         
         if k <= 0 or k != int(k):
@@ -218,6 +227,46 @@ class LinkedList:
 
         reversed_tail.next = None
         self.head = reversed_head
+
+    def alter_merge(self, other):
+        """Merges another linked list in alternative manner.
+
+        Starts with linked list of self.
+        """
+        if self.head is None:
+            self.head = other.head
+            other.head = None
+            return
+
+        if other.head is None:
+            return
+
+        curr = self.head
+        curr_other = other.head
+
+
+        while curr.next is not None:
+            curr_next = curr.next
+            curr.next = curr_other
+            curr = curr_next
+
+            curr_other_next = curr_other.next
+            curr_other.next = curr
+            curr_other = curr_other_next
+
+            if curr_other is None:
+                break
+
+        if curr_other is not None:
+            curr.next = curr_other
+
+        other.head = None
+
+    def emptify(self):
+        """Emptify linked list.
+        """
+        self.head = None
+
 
 
 class LinkedStack(LinkedList):
