@@ -1,22 +1,24 @@
+import pytest
 from dsa.linkedlist import LinkedList 
 from dsa.linkedlist import LinkedStack
 
+@pytest.fixture
+def empty_ll():
+    return LinkedList([])
 
-def test_linked_list_to_list():
-    input_list = [1, 2, 3]
-    converted_list = LinkedList(input_list).to_list()
-    assert input_list == converted_list
-    assert LinkedList([]).to_list() == []
+def test_linked_list_to_list(empty_ll):
+    converted_list = LinkedList([1, 2, 3]).to_list()
+    assert [1, 2, 3] == converted_list
+    assert empty_ll.to_list() == []
     
-def test_linked_list_reverse():
+def test_linked_list_reverse(empty_ll):
     input_list = [1, 2, 3]
     ll = LinkedList(input_list)
     ll.reverse()
     assert ll.to_list() == [3, 2, 1]
     
-    ll_null = LinkedList([])
-    ll_null.reverse()
-    assert ll_null.to_list() == []
+    empty_ll.reverse()
+    assert empty_ll.to_list() == []
 
 def test_even_odd_switch():
     input_list = [1, 2, 3]
@@ -34,7 +36,7 @@ def test_delete():
     assert ll.delete(3)
     assert ll.to_list() == []
 
-def test_middle():
+def test_middle(empty_ll):
     input_list = [1, 2, 3]
     ll = LinkedList(input_list)
     assert ll.middle() == 2
@@ -42,8 +44,7 @@ def test_middle():
     ll = LinkedList([1, 2, 3, 4])
     assert ll.middle() == 2
 
-    ll = LinkedList([])
-    assert ll.middle() is None
+    assert empty_ll.middle() is None
 
 def test_linkedstack():
     ls = LinkedStack()
