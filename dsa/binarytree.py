@@ -124,6 +124,21 @@ class BinaryTree:
                 node_queue.push(next_node.right)
             else:
                 return data_list
+    
+    def tree_height(self):
+        return BinaryTree._tree_height(self.root)
+
+    @staticmethod
+    def _tree_height(node):
+        """internal function for computing tree height.
+        """
+        
+        if node is None:
+            return 0
+        else:
+            left_height = 1 + BinaryTree._tree_height(node.left)
+            right_height = 1 + BinaryTree._tree_height(node.right)
+            return max(left_height, right_height)
 
 
     @staticmethod

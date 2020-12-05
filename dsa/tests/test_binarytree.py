@@ -11,3 +11,13 @@ def test_bfs_queue():
     a_tree = BinaryTree.from_fulllist(fulllist)
 
     assert a_tree.bfs_queue() == [1, 2, 3, 4,]
+
+def test_tree_height():
+    empty_tree = BinaryTree.from_fulllist([])
+
+    assert empty_tree.tree_height() == 0
+
+    fulllist = [1, 2, 3, 4]
+    a_tree = BinaryTree.from_fulllist(fulllist)
+
+    assert a_tree.tree_height() == 3
