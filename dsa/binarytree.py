@@ -1,6 +1,7 @@
 """Module for implementation of binary tree.
 """
 
+from .linkedlist import LinkedQueue
 
 class BinaryNode:
     """Binary tree node.
@@ -97,6 +98,32 @@ class BinaryTree:
         data_list = []
         BinaryTree._dfs_recursive(self.root, data_list)
         return data_list
+
+    def bfs_queue(self):
+        """Breadth First Search implemneted by Queue.
+
+        Returns
+        -------
+        list:
+            list of data at nodes in breadth first search order.
+        """
+
+        if self.root is None:
+            return
+        
+        node_queue = LinkedQueue()
+        node_queue.push(self.root)
+
+        data_list = []
+
+        while True:
+            next_node = node_queue.pop()
+            if next_node is not None:
+                data_list.append(next_node.data)
+                node_queue.push(next_node.left)
+                node_queue.push(next_node.right)
+            else:
+                return data_list
 
 
     @staticmethod
