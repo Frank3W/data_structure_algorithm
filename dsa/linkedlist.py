@@ -2,6 +2,8 @@
 Module for linkedlist data structure and algorithms
 """
 
+import random
+
 class LinkedNode:
     """Node for one-direction link.
 
@@ -286,6 +288,30 @@ class LinkedList:
 
         curr.next = other.head
         other.head = None
+
+    def sample_data(self):
+        if self.head is None:
+            return
+
+        curr = self.head
+        selected_ele = None
+        cnt = 1
+
+        while curr is not None:
+            if curr is self.head:
+                selected_ele = curr
+            else:
+                rand_val = random.uniform(0, 1)
+
+                bar_val = 1/cnt
+
+                if rand_val < bar_val:
+                    selected_ele = curr
+
+            cnt += 1
+            curr = curr.next
+
+        return selected_ele.data
 
 
     def emptify(self):

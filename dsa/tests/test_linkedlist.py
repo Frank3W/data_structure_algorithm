@@ -79,3 +79,15 @@ def test_concat(empty_ll):
     assert ll1.to_list() == [1, 2, 3, 4, 5, 6]
     ll1.concat(empty_ll)
     assert ll1.to_list() == [1, 2, 3, 4, 5, 6]
+
+def test_sample_data(empty_ll):
+    assert empty_ll.sample_data() is None
+
+    ll1 = LinkedList([1, 2, 3])
+    cnt_1 = 0
+    for i in range(100000):
+        sample_val = ll1.sample_data()
+        if sample_val == 1:
+            cnt_1 += 1
+    assert cnt_1 > 30000 or cnt < 40000
+
