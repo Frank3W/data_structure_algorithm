@@ -1,6 +1,7 @@
 import pytest
 from dsa.linkedlist import LinkedList 
 from dsa.linkedlist import LinkedStack
+from dsa.linkedlist import LinkedQueue
 
 @pytest.fixture
 def empty_ll():
@@ -91,3 +92,18 @@ def test_sample_data(empty_ll):
             cnt_1 += 1
     assert cnt_1 > 30000 or cnt < 40000
 
+def test_linkedqueue():
+    lq = LinkedQueue()
+    lq.push(1)
+    lq.push(2)
+    lq.push(3)
+    data_list = []
+
+    while True:
+       ele = lq.pop()
+       if ele is None:
+           return
+       else:
+           data_list.append(ele)
+
+    assert data_list == [1, 2, 3]

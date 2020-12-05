@@ -361,3 +361,39 @@ class LinkedStack(LinkedList):
             self.head = node
             node.next = head_next
 
+
+class LinkedQueue:
+    """Linked list implementation of Queue.
+    """
+
+    def __init__(self):
+        self.head = None
+        self.tail = None
+
+    def pop(self):
+        """Return next element if not empty.
+        """
+        if self.head is None:
+            return
+
+        node = self.head
+        self.head = self.head.next
+
+        return node.data
+
+    def push(self, data):
+        """Adds an element to the queue
+
+        Args
+        ----
+        data: any
+        """
+        node = LinkedNode(data)
+        if self.head is None:
+            self.head = node
+            self.tail = node
+        else:
+            self.tail.next = node
+            self.tail = self.tail.next
+
+
