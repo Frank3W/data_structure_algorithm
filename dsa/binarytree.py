@@ -126,7 +126,52 @@ class BinaryTree:
                 return data_list
     
     def tree_height(self):
+        """Gets tree height.
+        """
         return BinaryTree._tree_height(self.root)
+
+    def is_bst(self):
+        """Whether is a binary search tree
+
+        Returns
+        -------
+        bool:
+            True if it is a binary search tree and False otherwise
+        """
+
+        if self.root is None:
+            return True
+        
+        data_list = []
+        is_bst = BinaryTree._dfs_bst(self.root, data_list)
+        
+        print(data_list)
+        return is_bst
+        
+    
+    @staticmethod
+    def _dfs_bst(node, data_list):
+        """internal function for Depth First Serach to verify BFS.
+        """
+
+        if node is None:
+            return True
+        
+        left_tree = BinaryTree._dfs_bst(node.left, data_list)
+        
+        if not left_tree:
+            return left_tree
+        
+        next_val = node.data
+        if len(data_list) != 0 and next_val < data_list[-1]:
+            return False
+        
+        data_list.append(next_val)
+        
+        right_tree = BinaryTree._dfs_bst(node.right, data_list)
+        
+        return right_tree
+
 
     @staticmethod
     def _tree_height(node):
@@ -143,7 +188,7 @@ class BinaryTree:
 
     @staticmethod
     def _dfs_recursive(node, array_list):
-        """internal function for Depth First Search
+        """internal function for Depth First Search in preoder.
         """
 
         if node is None:

@@ -21,3 +21,10 @@ def test_tree_height():
     a_tree = BinaryTree.from_fulllist(fulllist)
 
     assert a_tree.tree_height() == 3
+
+def test_is_bst():
+    a_tree = BinaryTree.from_fulllist([1, 2, 3, 4])
+    assert not a_tree.is_bst()
+
+    bst = BinaryTree.from_fulllist([2, 1, 3, -1])
+    assert bst.is_bst()
