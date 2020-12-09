@@ -28,3 +28,10 @@ def test_is_bst():
 
     bst = BinaryTree.from_fulllist([2, 1, 3, -1])
     assert bst.is_bst()
+
+def test_is_symmetric():
+    a_tree = BinaryTree.from_fulllist([1, 2, 2, 3, 4, 4, 3])
+    assert a_tree.is_symmetric()
+
+    b_tree = BinaryTree.from_fulllist([1, 2, 3, 1, 3, None, 1])
+    assert not b_tree.is_symmetric()

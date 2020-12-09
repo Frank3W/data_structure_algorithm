@@ -36,14 +36,14 @@ class BinaryTree:
 
 
         size_list = len(full_list)
-        
+
         curr_level = []
 
         root = BinaryNode(full_list[0])
-        
+
         curr_level.append(root)
 
-        level_cnt = 0 
+        level_cnt = 0
         reach_end = False
 
         while True:
@@ -110,7 +110,7 @@ class BinaryTree:
 
         if self.root is None:
             return
-        
+
         node_queue = LinkedQueue()
         node_queue.push(self.root)
 
@@ -124,7 +124,7 @@ class BinaryTree:
                 node_queue.push(next_node.right)
             else:
                 return data_list
-    
+
     def tree_height(self):
         """Gets tree height.
         """
@@ -141,14 +141,38 @@ class BinaryTree:
 
         if self.root is None:
             return True
-        
+
         data_list = []
         is_bst = BinaryTree._dfs_bst(self.root, data_list)
-        
-        print(data_list)
+
         return is_bst
-        
-    
+
+    def is_symmetric(self):
+        """Whether is symmetric.
+
+        Returns
+        -------
+        bool:
+            True if it is a symmetric binary tree.
+        """
+        if self.root is None:
+            return True
+
+        return BinaryTree._is_symmetric(self.root.left, self.root.right)
+
+    @staticmethod
+    def _is_symmetric(leftnode, rightnode):
+        if leftnode is None and rightnode is None:
+            return True
+        elif leftnode is None and rightnode is not None:
+            return False
+        elif leftnode is not None and rightnode is None:
+            return False
+        else:
+            left_symmetric = BinaryTree._is_symmetric(leftnode.left, rightnode.right)
+            right_symmetric = BinaryTree._is_symmetric(leftnode.right, rightnode.left)
+            return left_symmetric and right_symmetric
+
     @staticmethod
     def _dfs_bst(node, data_list):
         """internal function for Depth First Serach to verify BFS.
@@ -156,20 +180,20 @@ class BinaryTree:
 
         if node is None:
             return True
-        
+
         left_tree = BinaryTree._dfs_bst(node.left, data_list)
-        
+
         if not left_tree:
             return left_tree
-        
+
         next_val = node.data
         if len(data_list) != 0 and next_val < data_list[-1]:
             return False
-        
+
         data_list.append(next_val)
-        
+
         right_tree = BinaryTree._dfs_bst(node.right, data_list)
-        
+
         return right_tree
 
 
@@ -177,7 +201,7 @@ class BinaryTree:
     def _tree_height(node):
         """internal function for computing tree height.
         """
-        
+
         if node is None:
             return 0
         else:
