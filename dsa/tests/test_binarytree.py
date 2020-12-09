@@ -35,3 +35,11 @@ def test_is_symmetric():
 
     b_tree = BinaryTree.from_fulllist([1, 2, 3, 1, 3, None, 1])
     assert not b_tree.is_symmetric()
+
+def test_level_traversal():
+    a_tree = BinaryTree.from_fulllist([1, 2, 2, 3, None, 3, 3])
+    a_list = a_tree.level_traversal()
+
+    assert a_list[0] == [1]
+    assert a_list[1] == [2, 2]
+    assert a_list[2] == [3, None, 3, 3]

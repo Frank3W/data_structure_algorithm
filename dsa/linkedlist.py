@@ -193,7 +193,7 @@ class LinkedList:
             number of elements in the group to be reversed.
 
         """
-        
+
         if k <= 0 or k != int(k):
             raise ValueError('input k must be a positive integer')
 
@@ -209,7 +209,7 @@ class LinkedList:
 
         while curr is not None:
             stack_kgroup.push(curr)
-            cnt += 1 
+            cnt += 1
 
             curr = curr.next
 
@@ -276,7 +276,7 @@ class LinkedList:
         ----
             other: LinkedList
         """
-        
+
         if self.head is None:
             self.head = other.head
             other.head = None
@@ -328,6 +328,12 @@ class LinkedStack(LinkedList):
     def __init__(self):
         super(LinkedStack, self).__init__([])
 
+    def is_empty(self):
+        if self.head is None:
+            return True
+        else:
+            return False
+
     def pop(self):
         """Removes first element.
 
@@ -351,7 +357,7 @@ class LinkedStack(LinkedList):
         data: any
 
         """
-        
+
         node = LinkedNode(data)
 
         if self.head is None:
@@ -369,6 +375,12 @@ class LinkedQueue:
     def __init__(self):
         self.head = None
         self.tail = None
+
+    def is_empty(self):
+        if self.head is None:
+            return True
+        else:
+            return False
 
     def pop(self):
         """Return next element if not empty.

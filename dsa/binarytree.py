@@ -79,6 +79,8 @@ class BinaryTree:
                     curr_node.right = next_node
                     next_level.append(next_node)
 
+                curr_idx += 1
+
             if reach_end:
                 break
 
@@ -117,13 +119,48 @@ class BinaryTree:
         data_list = []
 
         while True:
+            if node_queue.is_empty():
+                return data_list
             next_node = node_queue.pop()
             if next_node is not None:
                 data_list.append(next_node.data)
                 node_queue.push(next_node.left)
                 node_queue.push(next_node.right)
-            else:
-                return data_list
+
+    def level_traversal(self):
+        if self.root is None:
+            return
+
+        levels_list = []
+
+        curr_level = LinkedQueue()
+        curr_level.push(self.root)
+        is_all_none = False
+
+        while not is_all_none:
+            is_all_none = True
+            next_level = LinkedQueue()
+            curr_level_list = []
+            while True:
+                if curr_level.is_empty():
+                    curr_level = next_level
+                    levels_list.append(curr_level_list)
+                    break
+
+                curr_node = curr_level.pop()
+
+                if curr_node is None:
+                    curr_level_list.append(None)
+                    continue
+                else:
+                    curr_level_list.append(curr_node.data)
+
+                if curr_node.left is not None or curr_node.right is not None:
+                    is_all_none = False
+                next_level.push(curr_node.left)
+                next_level.push(curr_node.right)
+
+        return levels_list
 
     def tree_height(self):
         """Gets tree height.
