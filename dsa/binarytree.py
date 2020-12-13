@@ -89,7 +89,7 @@ class BinaryTree:
         return cls(root)
 
 
-    def dfs_recursive(self):
+    def dfs_recursive(self, order_type='inorder'):
         """Depth First Search implemented in recursive manner.
 
         Returns
@@ -98,7 +98,7 @@ class BinaryTree:
             list of data at nodes in depth first search order.
         """
         data_list = []
-        BinaryTree._dfs_recursive(self.root, data_list)
+        BinaryTree._dfs_recursive(self.root, data_list, order_type=order_type)
         return data_list
 
     def bfs_queue(self):
@@ -248,18 +248,29 @@ class BinaryTree:
 
 
     @staticmethod
-    def _dfs_recursive(node, array_list):
+    def _dfs_recursive(node, array_list, order_type):
         """internal function for Depth First Search in preoder.
         """
+
+        if order_type not in ['inorder', 'preorder', 'postorder']:
+            raise ValueError('order_type must be one of ["inorder", "preorder", "postorder"]')
+
 
         if node is None:
             return
 
-        array_list.append(node.data)
+        if order_type == 'preorder':
+            array_list.append(node.data)
 
         if node.left is not None:
-            BinaryTree._dfs_recursive(node.left, array_list)
+            BinaryTree._dfs_recursive(node.left, array_list, order_type)
+
+        if order_type == 'inorder':
+            array_list.append(node.data)
 
         if node.right is not None:
-            BinaryTree._dfs_recursive(node.right, array_list)
+            BinaryTree._dfs_recursive(node.right, array_list, order_type)
+
+        if order_type == 'postorder':
+            array_list.append(node.data)
 

@@ -3,8 +3,9 @@ from ..binarytree import BinaryTree
 def test_dfs_recursive():
     fulllist = [1, 2, 3, 4, None]
     a_tree = BinaryTree.from_fulllist(fulllist)
-
-    assert a_tree.dfs_recursive() == [1, 2, 4, 3]
+    assert a_tree.dfs_recursive(order_type='preorder') == [1, 2, 4, 3]
+    assert a_tree.dfs_recursive(order_type='inorder') == [4, 2, 1, 3]
+    assert a_tree.dfs_recursive(order_type='postorder') == [4, 2, 3, 1]
 
 def test_bfs_queue():
     fulllist = [1, 2, 3, 4, None]
