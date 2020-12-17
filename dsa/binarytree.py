@@ -1,6 +1,8 @@
 """Module for implementation of binary tree.
 """
 
+import os
+
 from .linkedlist import LinkedQueue
 
 class BinaryNode:
@@ -126,8 +128,88 @@ class BinaryTree:
                 data_list.append(next_node.data)
                 node_queue.push(next_node.left)
                 node_queue.push(next_node.right)
+                
+    def to_str(self, base_len=1):
+        """Converts to a printable string.
+        
+        Parameters
+        ----------
+            base_len:int
+                number of whitespace as a separation base for between nodes
+        
+        Returns
+        -------
+        str
+        """
+        
+        base_len = int(base_len)
+        if base_len <= 0:
+            raise ValueError('base_len should be a positive integer.')
 
-    def level_traversal(self):
+        if self.root is None:
+            return
+        h = self.tree_height()
+        root_wspace = base_len * (2 ** h - 1)
+        curr_level = LinkedQueue()
+        curr_level.push([self.root, root_wspace])
+        
+        level_lists = []
+        is_all_none = False
+        offset = base_len * (2 ** (h - 1))
+        
+        while not is_all_none:
+            is_all_none = True
+            next_level = LinkedQueue()
+            curr_list = []
+            for items in curr_level:
+                curr_node = items[0]
+                curr_wspace = items[1]
+                
+                if curr_node is None:
+                    continue
+                else:
+                    curr_list.append([curr_node.data, curr_wspace])
+                
+                if curr_node.left is not None or curr_node.right is not None:
+                    is_all_none = False
+                next_level.push([curr_node.left, curr_wspace - offset])
+                next_level.push([curr_node.right, curr_wspace + offset])
+
+            level_lists.append(curr_list)
+            offset /= 2
+            curr_level = next_level
+        
+        tree_str = ''
+        for line_list in level_lists:
+            level_str = ''
+            for items in line_list:
+                curr_wspace = int(items[1])
+                if curr_wspace < len(level_str):
+                    level_str = level_str[:curr_wspace]
+                else:
+                    level_str += (' ' * (curr_wspace - len(level_str)))
+                    
+                level_str += str(items[0])
+            tree_str += level_str
+            tree_str += os.linesep
+        return tree_str
+        
+
+    def level_traversal(self, stop_at_none=True):
+        """Level-order tree traversal
+        
+        Parameters
+        ----------
+            stop_at_none:bool
+                If True, traveral stops at None. Otherwise, traveral continues assumeing
+                None has two child nodes of None until reaching at the tree bottom.
+        
+        Returns
+        -------
+        list:
+            list of list of data at tree node.
+        """
+        
         if self.root is None:
             return
 
@@ -151,14 +233,20 @@ class BinaryTree:
 
                 if curr_node is None:
                     curr_level_list.append(None)
-                    continue
+                    if stop_at_none:
+                        continue
                 else:
                     curr_level_list.append(curr_node.data)
-
-                if curr_node.left is not None or curr_node.right is not None:
-                    is_all_none = False
-                next_level.push(curr_node.left)
-                next_level.push(curr_node.right)
+                
+                if curr_node is not None:
+                    if curr_node.left is not None or curr_node.right is not None:
+                        is_all_none = False
+                    next_level.push(curr_node.left)
+                    next_level.push(curr_node.right)
+                else:
+                    # only occurs when stop_at_none is False
+                    next_level.push(None)
+                    next_level.push(None)
 
         return levels_list
 

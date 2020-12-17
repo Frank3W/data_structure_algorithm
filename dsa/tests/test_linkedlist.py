@@ -59,6 +59,13 @@ def test_linkedstack():
     assert ls.pop() == 1
     assert ls.pop() is None
     assert ls.to_list() == []
+    
+    ls = LinkedStack()
+    ls.push(1)
+    ls.push(2)
+    ls.push(3)
+    assert list(ls) == [3, 2, 1]
+    assert ls.to_list() == []
 
 def test_reverse_kgroup():
     ll = LinkedList([1, 2, 3])
@@ -97,13 +104,12 @@ def test_linkedqueue():
     lq.push(1)
     lq.push(2)
     lq.push(3)
-    data_list = []
 
-    while True:
-       ele = lq.pop()
-       if ele is None:
-           return
-       else:
-           data_list.append(ele)
-
-    assert data_list == [1, 2, 3]
+    assert lq.to_list() == [1, 2, 3]
+    
+    lq = LinkedQueue()
+    lq.push(1)
+    lq.push(2)
+    lq.push(3)
+    assert list(lq) == [1, 2, 3]
+    assert lq.to_list() == []

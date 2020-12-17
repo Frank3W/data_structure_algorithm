@@ -334,6 +334,12 @@ class LinkedStack(LinkedList):
         else:
             return False
 
+    def __iter__(self):
+        # iterator will change data inplace - only one iteration allowed
+        while self.head is not None:
+            yield self.pop()
+
+
     def pop(self):
         """Removes first element.
 
@@ -381,6 +387,21 @@ class LinkedQueue:
             return True
         else:
             return False
+    
+    def __iter__(self):
+        # iterator will change data inplace - only one iteration allowed
+        while self.head is not None:
+            yield self.pop()
+    
+    def to_list(self):
+        """Converts to a list"""
+        
+        r_list = []
+        curr = self.head
+        while curr is not None:
+            r_list.append(curr.data)
+            curr = curr.next
+        return r_list
 
     def pop(self):
         """Return next element if not empty.
@@ -407,5 +428,3 @@ class LinkedQueue:
         else:
             self.tail.next = node
             self.tail = self.tail.next
-
-
