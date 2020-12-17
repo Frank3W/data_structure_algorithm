@@ -44,3 +44,14 @@ def test_level_traversal():
     assert a_list[0] == [1]
     assert a_list[1] == [2, 2]
     assert a_list[2] == [3, None, 3, 3]
+
+    a_tree = BinaryTree.from_fulllist([1, None, 3, 4, 5, 6, 7])
+    a_list = a_tree.level_traversal()
+    assert a_list[0] == [1]
+    assert a_list[1] == [None, 3]
+    assert a_list[2] == [4, 5]
+    assert a_list[3] == [6, 7, None, None]
+
+def test_left_view():
+    a_tree = BinaryTree.from_fulllist([1, 2, 3, 4, 5])
+    assert a_tree.left_view() == [1, 2, 4]
