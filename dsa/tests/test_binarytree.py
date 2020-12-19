@@ -60,3 +60,14 @@ def test_top_bottom_view():
     a_tree = BinaryTree.from_fulllist([1, 2, 3, 4, 5, 6, 7])
     assert a_tree.top_bottom_view() == [4, 2, 1, 3, 7]
     assert a_tree.top_bottom_view(top=False) == [4, 2, 5, 3, 7]
+
+def test_eq():
+    a_tree = BinaryTree.from_fulllist([1, 2, 3, 4, 5])
+    b_tree = BinaryTree.from_fulllist([1, 2, 3, 4, 5])
+    c_tree = BinaryTree.from_fulllist([1, 2, None, 3, 5])
+    d_tree = BinaryTree.from_fulllist([1, 2, None, 3, 5])
+    empty_tree = BinaryTree(None)
+    assert a_tree == b_tree
+    assert not a_tree == c_tree
+    assert not a_tree == empty_tree
+    assert c_tree == d_tree

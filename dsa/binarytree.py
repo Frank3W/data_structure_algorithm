@@ -20,7 +20,7 @@ class BinaryTree:
     """Binary tree implementation.
     """
 
-    def __init__(self, root):
+    def __init__(self, root=None):
         self.root = root
 
     @classmethod
@@ -439,6 +439,22 @@ class BinaryTree:
             return True
 
         return BinaryTree._is_symmetric(self.root.left, self.root.right)
+
+    def __eq__(self, other):
+        if self.root is None and other.root is None:
+            return True
+        elif self.root is not None and other.root is not None:
+            self_levels = self.level_traversal()
+            other_levels = other.level_traversal()
+            if len(self_levels) != len(other_levels):
+                return False
+            else:
+                for i in range(len(self_levels)):
+                    if self_levels[i] != other_levels[i]:
+                        return False
+                return True
+        else:
+            return False
 
     @staticmethod
     def _is_symmetric(leftnode, rightnode):
