@@ -287,6 +287,67 @@ class BinaryTree:
 
         return left_view_list
 
+    def top_bottom_view(self, top=True):
+        node_dist_lists = self._distance_by_level()
+
+        if node_dist_lists is None or len(node_dist_lists) == 0:
+            return None
+
+        view_dict = {}
+
+        if top:
+            loop_list = node_dist_lists
+        else:
+            loop_list = node_dist_lists[::-1]
+
+        for level_list in loop_list:
+            for item in level_list:
+                curr_val = item[0]
+                curr_dist = item[1]
+                if curr_dist not in view_dict:
+                    view_dict[curr_dist] = curr_val
+
+        sorted_pairs = sorted(view_dict.items(), key=lambda x: x[0])
+        sorted_values = [item[1] for item in sorted_pairs]
+
+        return sorted_values
+
+
+    def _distance_by_level(self, delta_unit=1):
+
+        if self.root is None:
+            return None
+
+        curr_level = []
+        curr_level.append([self.root, 0])
+
+        dist_lists = []
+
+        while True:
+            next_level = []
+            curr_list = []
+
+            for curr_item in curr_level:
+                curr_node = curr_item[0]
+                curr_dist = curr_item[1]
+
+                curr_list.append([curr_node.data, curr_dist])
+
+                if curr_node.left is not None:
+                    next_level.append([curr_node.left, curr_dist - delta_unit])
+
+                if curr_node.right is not None:
+                    next_level.append([curr_node.right, curr_dist + delta_unit])
+
+            dist_lists.append(curr_list)
+
+            if len(next_level) != 0:
+                curr_level = next_level
+            else:
+                break
+
+        return dist_lists
+
 
     def tree_height(self):
         """Gets tree height.

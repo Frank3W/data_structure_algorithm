@@ -55,3 +55,8 @@ def test_level_traversal():
 def test_left_view():
     a_tree = BinaryTree.from_fulllist([1, 2, 3, 4, 5])
     assert a_tree.left_view() == [1, 2, 4]
+
+def test_top_bottom_view():
+    a_tree = BinaryTree.from_fulllist([1, 2, 3, 4, 5, 6, 7])
+    assert a_tree.top_bottom_view() == [4, 2, 1, 3, 7]
+    assert a_tree.top_bottom_view(top=False) == [4, 2, 5, 3, 7]
