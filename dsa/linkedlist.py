@@ -27,6 +27,15 @@ class LinkedNode:
     def __str__(self):
         return str(self.data)
 
+class DoubleLinkedNode:
+    def __init__(self, data):
+        self.data = data
+        self.next = None
+        self.pre = None
+
+    def __str__(self):
+        return str(self.data)
+
 
 class LinkedList:
     """Linked list of LinkedNode.
@@ -387,15 +396,15 @@ class LinkedQueue:
             return True
         else:
             return False
-    
+
     def __iter__(self):
         # iterator will change data inplace - only one iteration allowed
         while self.head is not None:
             yield self.pop()
-    
+
     def to_list(self):
         """Converts to a list"""
-        
+
         r_list = []
         curr = self.head
         while curr is not None:

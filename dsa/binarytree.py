@@ -4,6 +4,7 @@
 import os
 
 from .linkedlist import LinkedQueue
+from .linkedlist import DoubleLinkedNode
 
 class BinaryNode:
     """Binary tree node.
@@ -191,6 +192,61 @@ class BinaryTree:
             tree_str += level_str
             tree_str += os.linesep
         return tree_str
+
+    def to_dll(self):
+        """Converts to double linked list
+        """
+        if self.root is None:
+            return None
+
+        begin_node, end_node = BinaryTree._to_dll_recursive(self.root)
+        return begin_node, end_node
+
+    @staticmethod
+    def _to_dll_recursive(node):
+        # node must be not none
+        begin_node = None
+        end_node = None
+
+        curr_dll_node = DoubleLinkedNode(node.data)
+
+        if node.left is None and node.right is None:
+            begin_node = curr_dll_node
+            end_node = curr_dll_node
+
+        elif node.left is None and node.right is not None:
+            right_begin, right_end = BinaryTree._to_dll_recursive(node.right)
+            begin_node = curr_dll_node
+            end_node = right_end
+
+            # connect nodes
+            curr_dll_node.next = right_begin
+            right_begin.pre = curr_dll_node
+        elif node.left is not None and node.right is None:
+            left_begin, left_end = BinaryTree._to_dll_recursive(node.left)
+            begin_node = left_begin
+            end_node = curr_dll_node
+
+            # connect nodes
+            left_end.next = curr_dll_node
+            curr_dll_node.pre = left_end
+        else:
+            left_begin, left_end = BinaryTree._to_dll_recursive(node.left)
+            right_begin, right_end = BinaryTree._to_dll_recursive(node.right)
+            begin_node = left_begin
+            end_node = right_end
+
+            # connect nodes
+            left_end.next = curr_dll_node
+            curr_dll_node.pre = left_end
+
+            curr_dll_node.next = right_begin
+            right_begin.pre = curr_dll_node
+
+        begin_node.pre = None
+        end_node.next = None
+
+        return begin_node, end_node
 
 
     def level_traversal(self, stop_at_none=True):
