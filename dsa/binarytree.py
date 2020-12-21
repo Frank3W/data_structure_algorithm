@@ -89,6 +89,70 @@ class BinaryTree:
 
         return cls(root)
 
+    def least_common_ancestor(self, val1, val2):
+        if self.root is None:
+            return None
+
+        node_stack = []
+        first_val = None
+        second_val = None
+
+        first_val_found = False
+        second_val_found = False
+
+        curr_node = self.root
+        while curr_node is not None:
+            node_stack.append([curr_node, False, False])
+            if not first_val_found:
+                if curr_node.data in [val1, val2]:
+                    first_val = curr_node.data
+                    first_val_found = True
+                    if first_val == val1:
+                        second_val = val2
+                    else:
+                        second_val = val1
+
+                    for item in node_stack:
+                        item[2] = True
+            else:
+                if curr_node.data == second_val:
+                    second_val_found = True
+
+            curr_node = curr_node.left
+
+        while len(node_stack) != 0:
+            if not node_stack[-1][1]:
+                node_stack[-1][1] = True
+                visit_node = node_stack[-1][0]
+
+                curr_node = visit_node.right
+                while curr_node is not None:
+                    node_stack.append([curr_node, False, False])
+                    if not first_val_found:
+                        if curr_node.data in [val1, val2]:
+                            first_val = curr_node.data
+                            first_val_found = True
+                            if first_val == val1:
+                                second_val = val2
+                            else:
+                                second_val = val1
+
+                            for item in node_stack:
+                                item[2] = True
+                    else:
+                        if curr_node.data == second_val:
+                            second_val_found = True
+
+                    curr_node = curr_node.left
+            else:
+                pop_item = node_stack.pop()
+                if first_val_found and second_val_found and pop_item[2]:
+                    return pop_item[0].data
+
+        return None
+
+
+
     def dfs_stack(self, order_type='inorder'):
         if order_type == 'preorder' or order_type == 'inorder':
             return self._dfs_stack_pre_in_order(order_type)

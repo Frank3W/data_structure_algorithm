@@ -77,3 +77,9 @@ def test_dfs_stack():
     assert a_tree.dfs_stack() == a_tree.dfs_recursive()
     assert a_tree.dfs_stack(order_type='preorder') == a_tree.dfs_stack(order_type='preorder')
     assert a_tree.dfs_stack(order_type='postorder') == a_tree.dfs_recursive(order_type='postorder')
+
+def test_least_common_ancestor():
+    a_tree = BinaryTree.from_fulllist([1, 2, 3, 4, 5])
+    assert a_tree.least_common_ancestor(4, 3) == 1
+    assert a_tree.least_common_ancestor(2, 5) == 2
+    assert a_tree.least_common_ancestor(4, 5) == 2
