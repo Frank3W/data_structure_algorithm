@@ -71,3 +71,9 @@ def test_eq():
     assert not a_tree == c_tree
     assert not a_tree == empty_tree
     assert c_tree == d_tree
+
+def test_dfs_stack():
+    a_tree = BinaryTree.from_fulllist([1, 2, 3, 4, 5])
+    assert a_tree.dfs_stack() == a_tree.dfs_recursive()
+    assert a_tree.dfs_stack(order_type='preorder') == a_tree.dfs_stack(order_type='preorder')
+    assert a_tree.dfs_stack(order_type='postorder') == a_tree.dfs_recursive(order_type='postorder')

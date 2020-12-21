@@ -89,6 +89,74 @@ class BinaryTree:
 
         return cls(root)
 
+    def dfs_stack(self, order_type='inorder'):
+        if order_type == 'preorder' or order_type == 'inorder':
+            return self._dfs_stack_pre_in_order(order_type)
+        elif order_type == 'postorder':
+            return self._dfs_stack_postorder()
+        else:
+            raise ValueError('order_type is not supported')
+
+    def _dfs_stack_postorder(self):
+        if self.root is None:
+            return None
+
+        val_list = []
+        node_stack = []
+
+        curr_node = self.root
+        while curr_node is not None:
+            node_stack.append([curr_node, False])
+            curr_node = curr_node.left
+
+        while len(node_stack) != 0:
+            if not node_stack[-1][1]:
+                node_stack[-1][1] = True
+                visit_node = node_stack[-1][0]
+
+                curr_node = visit_node.right
+                while curr_node is not None:
+                    node_stack.append([curr_node, False])
+                    curr_node = curr_node.left
+            else:
+                pop_pair = node_stack.pop()
+                val_list.append(pop_pair[0].data)
+
+        return val_list
+
+    def _dfs_stack_pre_in_order(self, order_type='inorder'):
+        if self.root is None:
+            return None
+
+        val_list = []
+        node_stack = []
+
+        curr_node = self.root
+        while curr_node is not None:
+            node_stack.append(curr_node)
+            if order_type == 'preorder':
+                val_list.append(curr_node.data)
+            curr_node = curr_node.left
+
+
+        while len(node_stack) != 0:
+            visit_node = node_stack.pop()
+            if order_type == 'inorder':
+                val_list.append(visit_node.data)
+
+            if visit_node.right is not None:
+                node_stack.append(visit_node.right)
+                if order_type == 'preorder':
+                    val_list.append(visit_node.right.data)
+                curr_node = visit_node.right.left
+                while curr_node is not None:
+                    node_stack.append(curr_node)
+                    if order_type == 'preorder':
+                        val_list.append(curr_node.data)
+                    curr_node = curr_node.left
+
+        return val_list
+
 
     def dfs_recursive(self, order_type='inorder'):
         """Depth First Search implemented in recursive manner.
