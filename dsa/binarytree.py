@@ -559,6 +559,51 @@ class BinaryTree:
 
         return is_bst
 
+    def find_largest_bst(self):
+        """Finds a binary search subtree of largest size
+
+        Returns
+        -------
+        tuple:
+            value at root of the binary search subtree of largest size.
+            size of the binary search subtree
+            minimum value of the binary search subtree
+            maximum value of the binary search subtree
+        """
+
+        node_val, bts_size, bts_min, bts_max, tree_size = self._find_largest_bst_recursive(self.root)
+        return node_val, bts_size, bts_min, bts_max
+
+    def _find_largest_bst_recursive(self, node):
+        if node.right is None and node.left is None:
+            return node.data, 1, node.data, node.data, 1
+
+        if node.left is not None:
+            left_root_data, left_bts_size, left_bts_min, left_bts_max, left_size = self._find_largest_bst_recursive(node.left)
+
+        if node.right is not None:
+            right_root_data, right_bts_size, right_bts_min, right_bts_max, right_size = self._find_largest_bst_recursive(node.right)
+
+        if node.left is not None and node.right is None:
+            if left_bts_size == left_size and left_bts_max < node.data:
+                return node.data, left_bts_size + 1, left_bts_min, node.data, left_size + 1
+            else:
+                return node.data, left_bts_size, left_bts_min, left_bts_max, left_size + 1
+        elif node.right is None and node.right is not None:
+            if right_bts_size == right_size and right_bts_min > node.data:
+                return node.data, right_bts_size + 1, node.data, right_bts_max, right_size + 1
+            else:
+                return right_root_data, right_bts_size, right_bts_min, right_bts_max, right_size + 1
+        else:
+            if left_bts_size == left_size and left_bts_max < node.data and right_bts_size == right_size and right_bts_min > node.data:
+                return node.data, left_bts_size + right_bts_size + 1, left_bts_min, right_bts_max, left_size + right_size + 1
+            else:
+                if left_bts_size >= right_bts_size:
+                    return left_root_data, left_bts_size, left_bts_min, left_bts_max, left_size + right_size + 1
+                else:
+                    return right_root_data, right_bts_size, right_bts_min, right_bts_max, left_size + right_size + 1
+
+
     def is_symmetric(self):
         """Whether is symmetric.
 

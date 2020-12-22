@@ -83,3 +83,11 @@ def test_least_common_ancestor():
     assert a_tree.least_common_ancestor(4, 3) == 1
     assert a_tree.least_common_ancestor(2, 5) == 2
     assert a_tree.least_common_ancestor(4, 5) == 2
+
+def test_find_largest_bst():
+    a_tree = BinaryTree.from_fulllist([1, 2, 3, -1, 3, 2, 5])
+    node_val, bts_size, bts_min, bts_max = a_tree.find_largest_bst()
+    assert node_val == 2
+    assert bts_size == 3
+    assert bts_min == -1
+    assert bts_max == 3
