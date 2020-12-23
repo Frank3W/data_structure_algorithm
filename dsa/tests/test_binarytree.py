@@ -101,3 +101,9 @@ def test_invert():
     assert a_list[0] == [1]
     assert a_list[1] == [3, 2]
     assert a_list[2] == [None, None, 5, 4]
+
+def test_diameter():
+    a_tree = BinaryTree.from_fulllist([1, 2, 3, 4, 5])
+    assert a_tree.diameter() == 4
+    b_tree = BinaryTree.from_fulllist([1, 2, 3, 4, 5, 6])
+    assert b_tree.diameter() == 5

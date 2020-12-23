@@ -623,6 +623,27 @@ class BinaryTree:
                     return right_root_data, right_bts_size, right_bts_min, right_bts_max, left_size + right_size + 1
 
 
+    def diameter(self):
+        """Gets diameter of the binary tree.
+
+        Diameter is the longest length between two leaves.
+        """
+
+        max_depth, diameter = BinaryTree._diameter_recursive(self.root)
+        return diameter
+
+    @staticmethod
+    def _diameter_recursive(node):
+        if node is None:
+            # max depth, diameter of the tree at node
+            return 0, 0
+
+        left_depth, left_diameter = BinaryTree._diameter_recursive(node.left)
+        right_depth, right_diameter = BinaryTree._diameter_recursive(node.right)
+
+        return 1 + max(left_depth, right_depth), max(1 + left_depth + right_depth, left_diameter, right_diameter)
+
+
     def invert(self):
         """Invert tree in place to be a mirror"""
 
