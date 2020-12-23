@@ -91,3 +91,13 @@ def test_find_largest_bst():
     assert bts_size == 3
     assert bts_min == -1
     assert bts_max == 3
+
+def test_invert():
+    a_tree = BinaryTree.from_fulllist([1, 2, 3, 4, 5])
+    a_tree.invert()
+
+    a_list = a_tree.level_traversal()
+
+    assert a_list[0] == [1]
+    assert a_list[1] == [3, 2]
+    assert a_list[2] == [None, None, 5, 4]

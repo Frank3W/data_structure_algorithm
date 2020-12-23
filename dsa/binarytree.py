@@ -623,6 +623,25 @@ class BinaryTree:
                     return right_root_data, right_bts_size, right_bts_min, right_bts_max, left_size + right_size + 1
 
 
+    def invert(self):
+        """Invert tree in place to be a mirror"""
+
+        BinaryTree._invert_recursive(self.root)
+
+
+    @staticmethod
+    def _invert_recursive(node):
+        if node is None:
+            return None
+
+        BinaryTree._invert_recursive(node.left)
+        BinaryTree._invert_recursive(node.right)
+
+        tmp = node.left
+        node.left = node.right
+        node.right = tmp
+
+
     def is_symmetric(self):
         """Whether is symmetric.
 
