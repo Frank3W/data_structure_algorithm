@@ -80,9 +80,9 @@ def test_dfs_stack():
 
 def test_least_common_ancestor():
     a_tree = BinaryTree.from_fulllist([1, 2, 3, 4, 5])
-    assert a_tree.least_common_ancestor(4, 3) == 1
-    assert a_tree.least_common_ancestor(2, 5) == 2
-    assert a_tree.least_common_ancestor(4, 5) == 2
+    assert a_tree.least_common_ancestor(4, 3) == (1, [4, 2, 1, 3])
+    assert a_tree.least_common_ancestor(2, 5) == (2, [2, 5])
+    assert a_tree.least_common_ancestor(4, 5) == (2, [4, 2, 5])
 
 def test_find_largest_bst():
     a_tree = BinaryTree.from_fulllist([1, 2, 3, -1, 3, 2, 5])

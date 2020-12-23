@@ -91,7 +91,7 @@ class BinaryTree:
 
     def least_common_ancestor(self, val1, val2):
         if self.root is None:
-            return None
+            return None, None
 
         node_stack = []
         first_val = None
@@ -100,8 +100,14 @@ class BinaryTree:
         first_val_found = False
         second_val_found = False
 
+        first_val_ansenstor = []
+        second_val_ansenstor = []
+
         curr_node = self.root
         while curr_node is not None:
+            # the first bool variable is False when first entering node_stack
+            # this variable will turn to be True when all nodes at the subtree
+            # rooted at this node are completed in traversal.
             node_stack.append([curr_node, False, False])
             if not first_val_found:
                 if curr_node.data in [val1, val2]:
@@ -112,11 +118,17 @@ class BinaryTree:
                     else:
                         second_val = val1
 
+                    # when node first entering node_stack, the node in
+                    # node_stack are all the ancestors of the entering node.
                     for item in node_stack:
                         item[2] = True
+                        first_val_ansenstor.append(item[0].data)
             else:
                 if curr_node.data == second_val:
                     second_val_found = True
+                    # keep ansenstors in a list
+                    for item in node_stack:
+                        second_val_ansenstor.append(item[0].data)
 
             curr_node = curr_node.left
 
@@ -139,17 +151,24 @@ class BinaryTree:
 
                             for item in node_stack:
                                 item[2] = True
+                                first_val_ansenstor.append(item[0].data)
                     else:
                         if curr_node.data == second_val:
                             second_val_found = True
+                            for item in node_stack:
+                                second_val_ansenstor.append(item[0].data)
 
                     curr_node = curr_node.left
             else:
                 pop_item = node_stack.pop()
                 if first_val_found and second_val_found and pop_item[2]:
-                    return pop_item[0].data
+                    least_common = pop_item[0].data
+                    first_val_path = first_val_ansenstor[first_val_ansenstor.index(least_common):]
+                    second_val_path = second_val_ansenstor[second_val_ansenstor.index(least_common):]
+                    path = first_val_path[::-1] + second_val_path[1:]
+                    return pop_item[0].data, path
 
-        return None
+        return None, None
 
 
 
