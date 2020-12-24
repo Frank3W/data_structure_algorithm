@@ -107,3 +107,10 @@ def test_diameter():
     assert a_tree.diameter() == 4
     b_tree = BinaryTree.from_fulllist([1, 2, 3, 4, 5, 6])
     assert b_tree.diameter() == 5
+
+def test_paths_root2leaves():
+    a_tree = BinaryTree.from_fulllist([1, 2, 3, 4, 5])
+    paths = a_tree.paths_root2leaves()
+    assert paths[0] == [1, 2, 4]
+    assert paths[1] == [1, 2, 5]
+    assert paths[2] == [1, 3]

@@ -89,6 +89,55 @@ class BinaryTree:
 
         return cls(root)
 
+    def paths_root2leaves(self):
+        """Gest all paths from root to leaves.
+
+        Return
+        ------
+            list
+                paths from root to leaves.
+        """
+        if self.root is None:
+            return None
+
+        node_stack = []
+        paths = []
+
+        curr_node = self.root
+        # add all left childs
+        while curr_node is not None:
+            node_stack.append([curr_node, False])
+            curr_node = curr_node.left
+
+        while len(node_stack) != 0:
+            # subtree at latest node is not complete in traversal,
+            # i.e., right child subtree is not coverted.
+            if not node_stack[-1][1]:
+                # make it True to indicate the right child subtree will be traversed in the loop.
+                node_stack[-1][1] = True
+                last_node = node_stack[-1][0]
+                curr_node = last_node.right
+
+                while curr_node is not None:
+                    node_stack.append([curr_node, False])
+                    curr_node = curr_node.left
+            # subtree at latest node is complete; all nodes in the stakc
+            # are the ancestor of the latest node.
+            else:
+                last_node = node_stack[-1][0]
+                # make sure last_node is a leaf
+                if last_node.left is None and last_node.right is None:
+                    one_path = []
+                    for pair in node_stack:
+                        one_path.append(pair[0].data)
+
+                    paths.append(one_path)
+
+                node_stack.pop()
+
+        return paths
+
+
     def least_common_ancestor(self, val1, val2):
         if self.root is None:
             return None, None
