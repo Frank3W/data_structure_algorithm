@@ -16,3 +16,8 @@ def test_reverse():
     int_seq.reverse()
 
     assert list(int_seq) == [3, 2, 1]
+
+def test_rm_duplicates():
+    a_seq = Sequence(['c', 'a', 'a', 'b', 'c', 'd', 'o'])
+    a_seq.rm_duplicates()
+    assert list(a_seq) == ['c', 'a', 'b', 'd', 'o']

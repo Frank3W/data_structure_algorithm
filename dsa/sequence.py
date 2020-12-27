@@ -17,6 +17,8 @@ class Sequence:
             yield self.data[i]
 
     def reverse(self):
+        """Reverse data in place"""
+
         seq_len = len(self)
         if seq_len == 0 or seq_len == 1:
             return
@@ -25,6 +27,26 @@ class Sequence:
             tmp = self.data[i]
             self.data[i] = self.data[seq_len - 1 - i]
             self.data[seq_len - 1 - i] = tmp
+
+    def rm_duplicates(self):
+        """Removes duplicates in place"""
+
+        if len(self.data) == 0 or len(self.data) == 1:
+            return None
+
+        visited_set = set()
+
+        r_idx = 0
+        for i in range(len(self.data)):
+            if self.data[i] in visited_set:
+                continue
+            else:
+                visited_set.add(self.data[i])
+                self.data[r_idx] = self.data[i]
+                r_idx += 1
+
+        self.data = self.data[:r_idx]
+
 
 
 class IntSequence(Sequence):
