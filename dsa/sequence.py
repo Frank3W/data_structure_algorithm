@@ -47,6 +47,32 @@ class Sequence:
 
         self.data = self.data[:r_idx]
 
+    def rotate2right(self, k):
+        """Rotates k positions to the right.
+
+        Parameters
+        ----------
+            k: int
+                number of position to rotate to right
+        """
+
+        if k != int(k) or k < 0:
+            raise ValueError('k must be a positive integer.')
+
+        len_data = len(self.data)
+
+        if len_data == 0 or len_data == 1:
+            return
+
+        k = k % len_data
+
+        if k == 0:
+            return
+
+        # rotate by k
+        tmp = self.data[(len_data - k):]
+        self.data[k:] = self.data[:(len_data-k)]
+        self.data[:k] = tmp
 
 
 class IntSequence(Sequence):

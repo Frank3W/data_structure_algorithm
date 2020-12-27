@@ -21,3 +21,10 @@ def test_rm_duplicates():
     a_seq = Sequence(['c', 'a', 'a', 'b', 'c', 'd', 'o'])
     a_seq.rm_duplicates()
     assert list(a_seq) == ['c', 'a', 'b', 'd', 'o']
+
+def test_rotate2right():
+    a_seq = Sequence(['a', 'b', 'c'])
+    a_seq.rotate2right(1)
+    assert list(a_seq) == ['c', 'a', 'b']
+    a_seq.rotate2right(2)
+    assert list(a_seq) == ['a', 'b', 'c']
