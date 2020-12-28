@@ -28,3 +28,9 @@ def test_rotate2right():
     assert list(a_seq) == ['c', 'a', 'b']
     a_seq.rotate2right(2)
     assert list(a_seq) == ['a', 'b', 'c']
+
+def test_longest_consecutive_subseq():
+    a_seq = IntSequence([11, 3, 1, 2, 12, 14, 13, 15, 0])
+    max_len, sub_seq = a_seq.longest_consecutive_subseq()
+    assert max_len == 5
+    assert sub_seq == [11, 12, 14, 13, 15]
