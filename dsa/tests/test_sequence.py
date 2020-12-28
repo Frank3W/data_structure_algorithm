@@ -34,3 +34,8 @@ def test_longest_consecutive_subseq():
     max_len, sub_seq = a_seq.longest_consecutive_subseq()
     assert max_len == 5
     assert sub_seq == [11, 12, 14, 13, 15]
+
+def test_negative_all_front():
+    a_seq = IntSequence([-1, 6, -2, 13, -9, 11, 21])
+    a_seq.negative_all_front()
+    assert set(a_seq[:3]) == set([-1, -2, -9])

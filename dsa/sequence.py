@@ -82,6 +82,31 @@ class IntSequence(Sequence):
         data = [int(_) for _ in data]
         super(IntSequence, self).__init__(data)
 
+    def negative_all_front(self):
+        """Moves all negatives to the front in place.
+        """
+        if len(self.data) <= 1:
+            return
+
+        front_idx = 0
+        end_idx = len(self.data) - 1
+
+        while front_idx < end_idx:
+            if self.data[front_idx] < 0:
+                front_idx += 1
+                continue
+
+            if self.data[end_idx] >= 0:
+                end_idx -= 1
+                continue
+
+            tmp = self.data[front_idx]
+            self.data[front_idx] = self.data[end_idx]
+            self.data[end_idx] = tmp
+
+            front_idx += 1
+            end_idx -= 1
+
 
     def longest_consecutive_subseq(self):
         """Gets longest subsequence such that it covers consecutive numbers.
