@@ -39,3 +39,10 @@ def test_negative_all_front():
     a_seq = IntSequence([-1, 6, -2, 13, -9, 11, 21])
     a_seq.negative_all_front()
     assert set(a_seq[:3]) == set([-1, -2, -9])
+
+def test_maxsum_contiguous():
+    a_seq = IntSequence([-2, -10, -1])
+    assert list(a_seq.maxsum_contiguous()) == [-1, 2, 2]
+
+    b_seq = IntSequence([-1, 2, 3, 5, -2])
+    assert list(b_seq.maxsum_contiguous()) == [10, 1, 3]

@@ -82,6 +82,47 @@ class IntSequence(Sequence):
         data = [int(_) for _ in data]
         super(IntSequence, self).__init__(data)
 
+    def maxsum_contiguous(self):
+        """Gets contiguous subarray with max sum.
+        """
+        if len(self.data) == 0:
+            return None
+
+        if len(self.data) == 1:
+            return self.data[0]
+
+        # kth is the max sum of contiguous subarray in self.data[:(k+1)]
+        mem_maxsum = []
+        # kth is the max sum of contiguous subarray ending at kth position in self.data[:(k+1)]
+        mem_maxsum_last_included = []
+
+        start_idx = 0
+        end_idx = 0
+
+        start_idx_last_included = 0
+
+        mem_maxsum.append(self.data[0])
+        mem_maxsum_last_included.append(self.data[0])
+
+        # dynamic programming in linear fashion
+        for idx in range(1, len(self.data)):
+            curr_val = self.data[idx]
+            maxsum_last_included = max(curr_val + mem_maxsum_last_included[-1], curr_val)
+            if maxsum_last_included == curr_val:
+                start_idx_last_included = idx
+
+            maxsum = max(maxsum_last_included, mem_maxsum[-1])
+
+            if maxsum == maxsum_last_included:
+                start_idx = start_idx_last_included
+                end_idx = idx
+
+            mem_maxsum_last_included.append(maxsum_last_included)
+            mem_maxsum.append(maxsum)
+
+        return mem_maxsum[-1], start_idx, end_idx
+
+
     def negative_all_front(self):
         """Moves all negatives to the front in place.
         """
