@@ -94,3 +94,12 @@ def test_alternative_negative_positive():
     b_seq = IntSequence([1, 2, 3, 4])
     b_seq.alternative_negative_positive()
     assert list(b_seq) == [1, 2, 3, 4]
+
+def test_zerosum_subarray():
+    a_seq = IntSequence([1, -3, 3])
+    has_zerosum, idx_pair = a_seq.zerosum_subarray()
+    assert has_zerosum
+    assert idx_pair[0] == 1
+    assert idx_pair[1] == 2
+
+

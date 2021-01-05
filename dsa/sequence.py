@@ -225,6 +225,29 @@ class IntSequence(Sequence):
                 self.data[idx_considered_next] = next_val
                 idx_considered_next += 1
 
+    def zerosum_subarray(self):
+        """Finds a subarray with sum equal 0.
+        """
+
+        if len(self.data) == 0:
+            return None
+
+        cumsum_dict = {}
+        curr_sum = 0
+
+        for idx, item in enumerate(self.data):
+            curr_sum += item
+
+            if curr_sum == 0:
+                return True, [0, idx]
+
+            if curr_sum in cumsum_dict:
+                return True, [cumsum_dict[curr_sum]+1, idx]
+
+            cumsum_dict[curr_sum] = idx
+
+        return False, None
+
 
     def longest_consecutive_subseq(self):
         """Gets longest subsequence such that it covers consecutive numbers.
