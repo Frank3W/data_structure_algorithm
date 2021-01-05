@@ -85,3 +85,12 @@ def test_wave_sequence():
     a_seq.wave_sequence()
 
     assert is_wave(a_seq)
+
+def test_alternative_negative_positive():
+    a_seq = IntSequence(range(-3, 5))
+    a_seq.alternative_negative_positive()
+    assert list(a_seq) == [-3, 0, -2, 1, -1, 2, 3, 4]
+
+    b_seq = IntSequence([1, 2, 3, 4])
+    b_seq.alternative_negative_positive()
+    assert list(b_seq) == [1, 2, 3, 4]

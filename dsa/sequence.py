@@ -1,5 +1,7 @@
 """Module for sequence data structure"""
 
+from .linkedlist import LinkedQueue
+
 
 class Sequence:
 
@@ -175,6 +177,55 @@ class IntSequence(Sequence):
                 go_up = True
 
 
+    def alternative_negative_positive(self):
+
+        if len(self.data) <= 1:
+            return
+
+        expected_neg = True
+        idx_considered_next = 0
+
+        neg_queue = LinkedQueue()
+        pos_queue = LinkedQueue()
+
+        for idx in range(len(self.data)):
+            if self.data[idx] < 0:
+                if expected_neg:
+                    self.data[idx_considered_next] = self.data[idx]
+                    idx_considered_next += 1
+                    if not pos_queue.is_empty():
+                        next_val = pos_queue.pop()
+                        self.data[idx_considered_next] = next_val
+                        idx_considered_next += 1
+                    else:
+                        expected_neg = False
+                else:
+                    neg_queue.push(self.data[idx])
+            else:
+                if expected_neg:
+                    pos_queue.push(self.data[idx])
+                else:
+                    self.data[idx_considered_next] = self.data[idx]
+                    idx_considered_next += 1
+                    if not neg_queue.is_empty():
+                        next_val = neg_queue.pop()
+                        self.data[idx_considered_next] = next_val
+                        idx_considered_next += 1
+                    else:
+                        expected_neg = True
+
+        if idx_considered_next < len(self.data):
+            while not pos_queue.is_empty():
+                next_val = pos_queue.pop()
+                self.data[idx_considered_next] = next_val
+                idx_considered_next += 1
+
+            while not neg_queue.is_empty():
+                next_val = neg_queue.pop()
+                self.data[idx_considered_next] = next_val
+                idx_considered_next += 1
+
+
     def longest_consecutive_subseq(self):
         """Gets longest subsequence such that it covers consecutive numbers.
         """
@@ -237,13 +288,3 @@ class IntSequence(Sequence):
         idx_list.sort()
 
         return longest_len, [self.data[_] for _ in idx_list]
-
-
-
-
-
-
-
-
-
-
