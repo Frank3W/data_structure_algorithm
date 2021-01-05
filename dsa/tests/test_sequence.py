@@ -46,3 +46,42 @@ def test_maxsum_contiguous():
 
     b_seq = IntSequence([-1, 2, 3, 5, -2])
     assert list(b_seq.maxsum_contiguous()) == [10, 1, 3]
+
+def is_wave(seq):
+    seq_list = list(seq)
+
+    if len(seq_list) <= 2:
+        return True
+
+    # expectation for next item
+    go_up = None
+    for idx in range(len(seq_list)):
+        if idx >= 1:
+            if seq_list[idx] > seq_list[idx-1]:
+                if go_up is None:
+                    go_up = False
+                else:
+                    if not go_up:
+                        return False
+                    else:
+                        go_up = False
+            elif seq_list[idx] < seq_list[idx-1]:
+                if go_up is None:
+                    go_up = True
+                else:
+                    if go_up:
+                        return False
+                    else:
+                        go_up = True
+            else:
+                if go_up is not None:
+                    go_up = not go_up
+
+    return True
+
+
+def test_wave_sequence():
+    a_seq = IntSequence([1, -2, 1, 3, 1, 2, 0, -1, 3, 5, -9])
+    a_seq.wave_sequence()
+
+    assert is_wave(a_seq)

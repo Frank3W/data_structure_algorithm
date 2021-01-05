@@ -148,6 +148,32 @@ class IntSequence(Sequence):
             front_idx += 1
             end_idx -= 1
 
+    def wave_sequence(self):
+        """Converts the sequence into waving pattern, i.e., a_1 <= a_2 >= a_3 <= a_4 >= a_5 ...
+        """
+
+        if len(self.data) <= 2:
+            return
+
+        if self.data[0] < self.data[1]:
+            go_up = False
+        else:
+            go_up = True
+
+        for idx in range(2, len(self.data)):
+            if go_up:
+                if self.data[idx] < self.data[idx-1]:
+                    tmp = self.data[idx]
+                    self.data[idx] = self.data[idx-1]
+                    self.data[idx-1] = tmp
+                go_up = False
+            else:
+                if self.data[idx] > self.data[idx-1]:
+                    tmp = self.data[idx]
+                    self.data[idx] = self.data[idx-1]
+                    self.data[idx-1] = tmp
+                go_up = True
+
 
     def longest_consecutive_subseq(self):
         """Gets longest subsequence such that it covers consecutive numbers.
