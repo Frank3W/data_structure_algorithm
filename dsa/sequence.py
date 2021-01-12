@@ -1,6 +1,7 @@
 """Module for sequence data structure"""
 
 from .linkedlist import LinkedQueue
+from .heap import Heap
 
 
 class Sequence:
@@ -83,6 +84,22 @@ class IntSequence(Sequence):
 
         data = [int(_) for _ in data]
         super(IntSequence, self).__init__(data)
+
+
+    def find_largest(self, k):
+        if k <= 0 or k != int(k):
+            raise ValueError('k must be a positive integer.')
+
+        k_heap = [ _ for _ in self.data[:k]]
+        Heap.heapify(k_heap)
+
+        for idx in range(k, len(self.data)):
+            curr_val = self.data[idx]
+            if curr_val > k_heap[0]:
+                Heap.replace_root(k_heap, curr_val)
+
+        return k_heap[0]
+
 
     def maxsum_contiguous(self):
         """Gets contiguous subarray with max sum.

@@ -102,4 +102,7 @@ def test_zerosum_subarray():
     assert idx_pair[0] == 1
     assert idx_pair[1] == 2
 
-
+def test_find_largest():
+    a_seq = IntSequence(range(10))
+    for i in range(10):
+        assert a_seq.find_largest(i+1) == 9 - i
