@@ -106,3 +106,8 @@ def test_find_largest():
     a_seq = IntSequence(range(10))
     for i in range(10):
         assert a_seq.find_largest(i+1) == 9 - i
+
+def test_find_frequent():
+    a_seq = IntSequence([1, 1, 1, 1, 2, 2, 2, 3, 3, 5])
+    assert set(a_seq.find_frequent(3)) == set([1])
+    assert set(a_seq.find_frequent(4)) == set([2, 1])

@@ -100,6 +100,54 @@ class IntSequence(Sequence):
 
         return k_heap[0]
 
+    def find_frequent(self, k):
+        """Find elements with frequency > n/k where n is sequence length
+        """
+
+        if k <= 1 or k != int(k):
+            raise ValueError('k must be a positive integer >= 2.')
+
+        stack_list = []
+        for i in range(k-1):
+            stack_list.append([])
+
+        for curr_val in self.data:
+            is_existent = False
+
+            empty_stack = None
+            for curr_stack in stack_list:
+                if len(curr_stack) == 0:
+                    empty_stack = curr_stack
+                else:
+                    if curr_val == curr_stack[-1]:
+                        curr_stack.append(curr_val)
+                        is_existent = True
+            if not is_existent:
+                if empty_stack is not None:
+                    empty_stack.append(curr_val)
+                else:
+                    for curr_stack in stack_list:
+                        curr_stack.pop()
+
+        val_dict = {}
+        for curr_stack in stack_list:
+            if len(curr_stack) != 0:
+                val_dict[curr_stack[0]] = 0
+
+        for curr_val in self.data:
+            if curr_val in val_dict:
+                val_dict[curr_val] += 1
+
+        freq_list = []
+
+        threshold = len(self.data) // k
+
+        for key, value in val_dict.items():
+            if value > threshold:
+                freq_list.append(key)
+
+        return freq_list
+
 
     def maxsum_contiguous(self):
         """Gets contiguous subarray with max sum.
