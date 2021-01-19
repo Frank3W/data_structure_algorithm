@@ -1,6 +1,7 @@
 """Module for sequence data structure"""
 
 from .linkedlist import LinkedQueue
+from .linkedlist import LinkedStack
 from .heap import Heap
 
 
@@ -376,3 +377,35 @@ class IntSequence(Sequence):
         idx_list.sort()
 
         return longest_len, [self.data[_] for _ in idx_list]
+
+    def gen_idx_first_smaller(self):
+        """Generates a list of indices for the lastest smaller element on the left for each item.
+
+        Returns
+        -------
+            list of integers
+        """
+
+        idx_list = [-1] * len(self.data)
+
+        if len(self.data) <= 1:
+            return idx_list
+
+        # stack that keeps the cadidates for previous possibally smaller values than current item.
+        candidate_stack = LinkedStack()
+
+        for i in range(1, len(self.data)):
+            if self.data[i] >= self.data[i - 1]:
+                idx_list[i] = i - 1
+                candidate_stack.push((self.data[i-1], i-1))
+            else:
+                pre_idx = -1
+                while not candidate_stack.is_empty():
+                    next_val, next_idx = candidate_stack.pop()
+                    if next_val <= self.data[i]:
+                        pre_idx = next_idx
+                        break
+
+                idx_list[i] = pre_idx
+
+        return idx_list

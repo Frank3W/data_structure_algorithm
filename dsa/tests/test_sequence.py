@@ -111,3 +111,10 @@ def test_find_frequent():
     a_seq = IntSequence([1, 1, 1, 1, 2, 2, 2, 3, 3, 5])
     assert set(a_seq.find_frequent(3)) == set([1])
     assert set(a_seq.find_frequent(4)) == set([2, 1])
+
+def test_gen_idx_first_smaller():
+    a_seq = IntSequence([1, 2, 3])
+    assert a_seq.gen_idx_first_smaller() == [-1, 0, 1]
+
+    b_seq = IntSequence([1, 2, 4, -1, 10])
+    assert b_seq.gen_idx_first_smaller() == [-1, 0, 1, -1, 3]
