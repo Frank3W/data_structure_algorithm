@@ -114,3 +114,13 @@ def test_paths_root2leaves():
     assert paths[0] == [1, 2, 4]
     assert paths[1] == [1, 2, 5]
     assert paths[2] == [1, 3]
+
+def test_is_path():
+    a_tree = BinaryTree.from_fulllist([1, 2, 3, 4, 5])
+    assert not a_tree.is_path()
+
+    b_tree = BinaryTree.from_fulllist([1, 2, None, None, 3])
+    assert b_tree.is_path()
+
+    c_tree = BinaryTree.from_fulllist([])
+    assert c_tree.is_path()

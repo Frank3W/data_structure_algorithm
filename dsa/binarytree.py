@@ -610,6 +610,32 @@ class BinaryTree:
         """
         return BinaryTree._tree_height(self.root)
 
+    def is_path(self):
+        """Whether is a path
+
+        Returns
+        -------
+        bool:
+            True if every non-leaf node only has one child node. Otherwise False.
+        """
+
+        if self.root is None:
+            return True
+
+        curr_node = self.root
+
+        while curr_node is not None:
+            if curr_node.left is None and curr_node.right is None:
+                return True
+            elif curr_node.left is not None and curr_node.right is not None:
+                return False
+            else:
+                if curr_node.left is not None:
+                    curr_node = curr_node.left
+                else:
+                    curr_node = curr_node.right
+
+
     def is_bst(self):
         """Whether is a binary search tree
 
