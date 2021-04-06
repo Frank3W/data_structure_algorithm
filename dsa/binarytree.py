@@ -471,36 +471,31 @@ class BinaryTree:
 
         curr_level = LinkedQueue()
         curr_level.push(self.root)
-        is_all_none = False
 
-        while not is_all_none:
-            is_all_none = True
-            next_level = LinkedQueue()
+        while not curr_level.is_empty():
             curr_level_list = []
+            next_level = LinkedQueue()
             while True:
-                if curr_level.is_empty():
-                    curr_level = next_level
-                    levels_list.append(curr_level_list)
-                    break
-
+                none_curr_level = True
                 curr_node = curr_level.pop()
-
-                if curr_node is None:
-                    curr_level_list.append(None)
-                    if stop_at_none:
-                        continue
-                else:
-                    curr_level_list.append(curr_node.data)
-
                 if curr_node is not None:
-                    if curr_node.left is not None or curr_node.right is not None:
-                        is_all_none = False
+                    none_curr_level = False
+                    curr_level_list.append(curr_node.data)
                     next_level.push(curr_node.left)
                     next_level.push(curr_node.right)
                 else:
-                    # only occurs when stop_at_none is False
-                    next_level.push(None)
-                    next_level.push(None)
+                    curr_level_list.append(None)
+                    if not stop_at_none:
+                        next_level.push(None)
+                        next_level.push(None)
+
+                if curr_level.is_empty():
+                    levels_list.append(curr_level_list)
+                    if not stop_at_none and none_curr_level:
+                        # empty queue to exit loop
+                        next_level = LinkedQueue()
+                    curr_level = next_level
+                    break
 
         return levels_list
 
