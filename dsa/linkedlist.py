@@ -20,7 +20,7 @@ class LinkedNode:
         next node via the link
     """
 
-    __slots__ = ['data', 'next']
+    __slots__ = 'data', 'next'
 
     def __init__(self, data):
         self.data = data
@@ -31,7 +31,7 @@ class LinkedNode:
 
 class DoubleLinkedNode:
 
-    __slots__ = ['data', 'next', 'pre']
+    __slots__ = 'data', 'next', 'pre'
     def __init__(self, data):
         self.data = data
         self.next = None
