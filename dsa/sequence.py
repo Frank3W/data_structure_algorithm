@@ -51,6 +51,34 @@ class Sequence:
 
         self.data = self.data[:r_idx]
 
+    def _all_permutation_w_idx(self, idx):
+        if idx == (len(self.data) - 1):
+            return [[self.data[idx]]]
+        else:
+            r_list = []
+            for curr_idx in range(idx, len(self.data)):
+                tmp = self.data[idx]
+                self.data[idx] = self.data[curr_idx]
+                self.data[curr_idx] = tmp
+
+                curr_list = self._all_permutation_w_idx(idx+1)
+                for _ in range(len(curr_list)):
+                    curr_list[_] = [self.data[idx]] + curr_list[_]
+                r_list = r_list + curr_list
+
+                tmp = self.data[idx]
+                self.data[idx] = self.data[curr_idx]
+                self.data[curr_idx] = tmp
+
+            return r_list
+
+    def all_permutations(self):
+        """Gets all permutation of the sequence"""
+        if len(self.data) == 0:
+            return []
+        return self._all_permutation_w_idx(0)
+
+
     def rotate2right(self, k):
         """Rotates k positions to the right.
 

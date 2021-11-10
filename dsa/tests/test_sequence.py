@@ -118,3 +118,12 @@ def test_gen_idx_first_smaller():
 
     b_seq = IntSequence([1, 2, 4, -1, 10])
     assert b_seq.gen_idx_first_smaller() == [-1, 0, 1, -1, 3]
+
+def test_all_permutation():
+    for k in [3, 4, 5]:
+        a_seq = Sequence(range(k))
+        a_pm_list = a_seq.all_permutations()
+        fac = 1
+        for i in range(1, k+1):
+            fac *= i
+        assert len(a_pm_list) == fac
