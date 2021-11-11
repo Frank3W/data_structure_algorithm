@@ -734,6 +734,24 @@ class BinaryTree:
         node.left = node.right
         node.right = tmp
 
+    def is_height_balance(self):
+        """Whether tree is in balacne on height for every node"""
+        if self.root is None:
+            return True
+
+        _, is_balanced = self._is_height_balance(self.root)
+        return is_balanced
+
+    def _is_height_balance(self, node):
+        if node is None:
+            return 0, True
+
+        is_balanced = True
+        left_heigh, is_left_balanced = self._is_height_balance(node.left)
+        right_height, is_right_balanced = self._is_height_balance(node.right)
+        return max(left_heigh, right_height) + 1, is_left_balanced and is_right_balanced and abs(left_heigh-right_height) <= 1
+
+
 
     def is_symmetric(self):
         """Whether is symmetric.

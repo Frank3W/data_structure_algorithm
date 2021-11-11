@@ -124,3 +124,7 @@ def test_is_path():
 
     c_tree = BinaryTree.from_fulllist([])
     assert c_tree.is_path()
+
+def test_is_height_balance():
+    a_tree = BinaryTree.from_fulllist([1, 2, 3, 4, 5])
+    assert a_tree.is_height_balance()
